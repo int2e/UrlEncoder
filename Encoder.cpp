@@ -37,18 +37,22 @@ string Encoder::UrlDecode(const string &str)
     char szTemp[2];
     size_t i = 0;
     size_t nLength = str.length();
-    while (i < nLength) {
-        if (str[i] == '%') {
+    while (i < nLength)
+    {
+        if (str[i] == '%')
+        {
             szTemp[0] = str[i + 1];
             szTemp[1] = str[i + 2];
             strResult += StrToBin(szTemp);
             i = i + 3;
         }
-        else if (str[i] == '+') {
+        else if (str[i] == '+')
+        {
             strResult += ' ';
             i++;
         }
-        else {
+        else
+        {
             strResult += str[i];
             i++;
         }
@@ -137,14 +141,12 @@ string Encoder::AnsiStringToUTF8String(const string& strAnsi)
 
 void Encoder::AnsiToUnicode(WCHAR* pUnicodeBuffer, int nUnicodeBufferSize, const char *pAnsiBuffer, int nAnsiBufferSize)
 {
-    ::MultiByteToWideChar(CP_ACP, MB_PRECOMPOSED, pAnsiBuffer, nAnsiBufferSize, pUnicodeBuffer, nUnicodeBufferSize);
-    return;
+    MultiByteToWideChar(CP_ACP, MB_PRECOMPOSED, pAnsiBuffer, nAnsiBufferSize, pUnicodeBuffer, nUnicodeBufferSize);
 }
 
 void Encoder::UnicodeToAnsi(char* pAnsiBuffer, int nAnsiBufferSize, WCHAR* pUnicodeBuffer, int nUnicodeBufferSize)
 {
     WideCharToMultiByte(CP_ACP, NULL, pUnicodeBuffer, nUnicodeBufferSize, pAnsiBuffer, nAnsiBufferSize, NULL, NULL);
-    return;
 }
 
 void Encoder::UTF8CharToUnicodeChar(WCHAR* pUnicodeBuffer, const char *pUTF8Buffer)
@@ -152,7 +154,6 @@ void Encoder::UTF8CharToUnicodeChar(WCHAR* pUnicodeBuffer, const char *pUTF8Buff
     char* pChar = (char *)pUnicodeBuffer;
     pChar[1] = ((pUTF8Buffer[0] & 0x0F) << 4) + ((pUTF8Buffer[1] >> 2) & 0x0F);
     pChar[0] = ((pUTF8Buffer[1] & 0x03) << 6) + (pUTF8Buffer[2] & 0x3F);
-    return;
 }
 
 void Encoder::UnicodeCharToUTF8Char(char* pUTF8Buffer, const WCHAR* pUnicodeBuffer)
@@ -161,26 +162,32 @@ void Encoder::UnicodeCharToUTF8Char(char* pUTF8Buffer, const WCHAR* pUnicodeBuff
     pUTF8Buffer[0] = (0xE0 | ((pChar[1] & 0xF0) >> 4));
     pUTF8Buffer[1] = (0x80 | ((pChar[1] & 0x0F) << 2)) + ((pChar[0] & 0xC0) >> 6);
     pUTF8Buffer[2] = (0x80 | (pChar[0] & 0x3F));
-    return;
 }
 
 char Encoder::CharToInt(char ch)
 {
     if (ch >= '0' && ch <= '9')
+    {
         return (char)(ch - '0');
+    }
+
     if (ch >= 'a' && ch <= 'f')
+    {
         return (char)(ch - 'a' + 10);
+    }
     if (ch >= 'A' && ch <= 'F')
+    {
         return (char)(ch - 'A' + 10);
+    }
     return -1;
 }
 
 char Encoder::StrToBin(char *pString)
 {
-    char tempWord[2];
-    char chn;
-    tempWord[0] = CharToInt(pString[0]); //make the B to 11 -- 00001011 
-    tempWord[1] = CharToInt(pString[1]); //make the 0 to 0 -- 00000000 
-    chn = (tempWord[0] << 4) | tempWord[1]; //to change the BO to 10110000 
-    return chn;
+    char szBuffer[2];
+    char ch;
+    szBuffer[0] = CharToInt(pString[0]); //make the B to 11 -- 00001011 
+    szBuffer[1] = CharToInt(pString[1]); //make the 0 to 0 -- 00000000 
+    ch = (szBuffer[0] << 4) | szBuffer[1]; //to change the BO to 10110000 
+    return ch;
 }
