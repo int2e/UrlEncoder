@@ -1,5 +1,5 @@
-# encoder
-vc++ c++ cpp Encoder class( UrlEncode / UrlDecode / UTF8UrlEncode / UTF8UrlDecode)
+# UrlEncoder
+vc++ c++ cpp UrlEncoder class( UrlEncode / UrlDecode / UTF8UrlEncode / UTF8UrlDecode)
 
 参考了网上一个strcoding的代码,原出处已不可查
 
