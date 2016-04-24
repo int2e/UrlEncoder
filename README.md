@@ -2,7 +2,6 @@
 vc++ Encoder class( UrlEncode / UrlDecode / UTF8UrlEncode / UTF8UrlDecode)
 
 
-[code]
 #include "Encoder.h"
 int _tmain(int argc, _TCHAR* argv[])
 {
@@ -18,8 +17,6 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	str = encoder.UrlDecode("C%2B%2B%D6%D0%CA%B5%CF%D6%C0%E0%CB%C6php%B5%C4UTF8%BA%CDUrlEncode%BA%AF%CA%FD");
 	printf("%s\r\n", str.c_str());
-
-    system("pause");
+	
 	return 0;
 }
-[/code]
