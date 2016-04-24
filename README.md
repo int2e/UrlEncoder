@@ -2,6 +2,7 @@
 vc++ Encoder class( UrlEncode / UrlDecode / UTF8UrlEncode / UTF8UrlDecode)
 
 
+```c++
 #include "Encoder.h"
 int _tmain(int argc, _TCHAR* argv[])
 {
@@ -20,3 +21,5 @@ int _tmain(int argc, _TCHAR* argv[])
 	
 	return 0;
 }
+
+```
