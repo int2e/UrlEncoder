@@ -1,6 +1,10 @@
 # encoder
 vc++ Encoder class( UrlEncode / UrlDecode / UTF8UrlEncode / UTF8UrlDecode)
 
+参考了网上一个strcoding的代码,原出处已不可查
+
+----------------
+使用方法
 
 ```c++
 #include "Encoder.h"
