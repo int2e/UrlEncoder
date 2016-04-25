@@ -9,13 +9,14 @@ string Encoder::UrlEncode(const string &str)
     string strResult;
     size_t nLength = str.length();
     unsigned char* pBytes = (unsigned char*)str.c_str();
+    char szAlnum[2];
+    char szOther[4];
     for (size_t i = 0; i < nLength; i++)
     {
         if (isalnum((BYTE)str[i]))
         {
-            char szTemp[2];
-            sprintf(szTemp, "%c", str[i]);
-            strResult.append(szTemp);
+            sprintf(szAlnum, "%c", str[i]);
+            strResult.append(szAlnum);
         }
         else if (isspace((BYTE)str[i]))
         {
@@ -23,9 +24,8 @@ string Encoder::UrlEncode(const string &str)
         }
         else
         {
-            char szTemp[4];
-            sprintf(szTemp, "%%%X%X", pBytes[i] >> 4, pBytes[i] % 16);
-            strResult.append(szTemp);
+            sprintf(szOther, "%%%X%X", pBytes[i] >> 4, pBytes[i] % 16);
+            strResult.append(szOther);
         }
     }
     return strResult;
@@ -79,6 +79,7 @@ string Encoder::UTF8StringToAnsiString(const string &strUtf8)
     int i = 0;
     int j = 0;
     char szBuffer[4] = { 0 };
+    WCHAR cchWideChar;
     while (i < nUTF8StringLength)
     {
         if (strUtf8[i] >= 0)
@@ -87,7 +88,6 @@ string Encoder::UTF8StringToAnsiString(const string &strUtf8)
         }
         else
         {
-            WCHAR cchWideChar;
             UTF8CharToUnicodeChar(&cchWideChar, &strUtf8[i]);
             UnicodeToAnsi(szBuffer, 2, &cchWideChar, 1);
 
@@ -108,17 +108,17 @@ string Encoder::AnsiStringToUTF8String(const string& strAnsi)
     char szBuffer[4] = { 0 };
     strResult.clear();
     int i = 0;
+    char szAscii[2] = { 0 };
+    WCHAR cchWideChar;
     while (i < nAnsiStringLength)
     {
         if (strAnsi[i] >= 0)
         {
-            char szAscii[2] = { 0 };
             szAscii[0] = (strAnsi[i++]);
             strResult.append(szAscii);
         }
         else
         {
-            WCHAR cchWideChar;
             AnsiToUnicode(&cchWideChar, 1, &strAnsi[i], 2);
             UnicodeCharToUTF8Char(szBuffer, &cchWideChar);
             strResult.append(szBuffer);
