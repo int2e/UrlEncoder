@@ -15,7 +15,7 @@ string Encoder::UrlEncode(const string &str)
     {
         if (isalnum((BYTE)str[i]))
         {
-            sprintf(szAlnum, "%c", str[i]);
+            sprintf_s(szAlnum, sizeof(szAlnum), "%c", str[i]);
             strResult.append(szAlnum);
         }
         else if (isspace((BYTE)str[i]))
@@ -24,7 +24,7 @@ string Encoder::UrlEncode(const string &str)
         }
         else
         {
-            sprintf(szOther, "%%%X%X", pBytes[i] >> 4, pBytes[i] % 16);
+            sprintf_s(szOther, sizeof(szOther), "%%%X%X", pBytes[i] >> 4, pBytes[i] % 16);
             strResult.append(szOther);
         }
     }
